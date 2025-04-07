@@ -1,0 +1,205 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    line-height: 1.6;
+}
+.navbar {
+    background-color: #850000;
+    padding: 15px 0;
+}
+.navbar-brand, .nav-link {
+    font-weight: 500;
+}
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    text-align: center;
+}
+.hero-section h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+#section_description {
+    padding: 50px 0;
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.section-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.section-content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+.section-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 35px;
+    margin-bottom: 15px;
+}
+.table {
+    margin: 25px 0;
+    font-size: 1.1rem;
+    border-spacing: 0;
+}
+.table th, .table td {
+    padding: 15px;
+    vertical-align: middle;
+}
+hr {
+    margin: 30px 0;
+    border-color: #555;
+}
+.btn-custom {
+    background-color: #850000;
+    color: #fff;
+    border-radius: 25px;
+    padding: 10px 30px;
+    transition: background-color 0.3s;
+}
+.btn-custom:hover {
+    background-color: #dd9933;
+    color: #fff;
+}
+.dropdown button {
+    border: none;
+    background: none;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 1.5px;
+    font-weight: 500;
+}
+.dropdown .dropdown-menu {
+    margin-top: 0;
+    background: #1a1a1a;
+    color: white;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    background: #1a1a1a;
+}
+.dropdown-item {
+    color: white;
+    font-weight: 400;
+}
+.dropdown-item:hover {
+    background-color: #333;
+    color: #dd9933;
+}
+#lienhe {
+    padding: 50px 0;
+}
+#lienhe h5 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+#lienhe p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+.footer {
+    background-color: #333333;
+    padding: 5px 0;
+    font-size: 0.9rem;
+}
+/* Chat Button Styles */
+.chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #850000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+.chat-button:hover {
+    background-color: #dd9933;
+    transform: scale(1.1);
+}
+.chat-button i {
+    font-size: 24px;
+    color: white;
+}
+/* Popup Chat Styles */
+.chat-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 250px;
+    background-color: #1a1a1a;
+    border: 1px solid #850000;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 1000;
+}
+.chat-header {
+    background-color: #850000;
+    color: white;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chat-header span {
+    font-size: 14px;
+    font-weight: bold;
+}
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+.chat-body {
+    padding: 10px;
+}
+.chat-option {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.chat-option:hover {
+    background-color: #333333;
+    border-radius: 5px;
+    color: #dd9933;
+}
+.chat-option i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+.table-transparent {
+--bs-table-bg: transparent;
+--bs-table-color: white;
+--bs-table-border-color: rgba(99, 94, 94, 0.603);
+background-color: transparent !important;
+}
+
+.table-transparent thead {
+--bs-table-bg: rgba(0, 0, 0, 0.404);
+}
+
+.table-transparent tbody tr {
+--bs-table-bg: rgba(0, 0, 0, 0.329);
+}
