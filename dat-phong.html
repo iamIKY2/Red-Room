@@ -12,31 +12,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="./css/dat-phong.css">
+  <!---->  <link rel="stylesheet" href="./css/dat-phong.css">
+
 </head>
 <body style=" background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./img/background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
+            <a class="navbar-brand fw-bold" href="./index.html">
                 <i class="fas fa-ghost me-2"></i>RED ROOM</a>
-          
+          <!-- Dành cho khi màn hình nhỏ lại thì menu đc gọn lại -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html"><i class="fas fa-home me-1"></i> Trang Chủ</a></li>
-			<li>
+                    <li class="nav-item"><a class="nav-link active" href="./index.html"><i class="fas fa-home me-1"></i> Trang Chủ</a></li>
+            
                     <div class="dropdown">
+                    <li>
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                           Phòng chơi
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="./phong-choi-nha-ma.html">Ngôi Nhà Ma Ám</a></li>
-                            <li><a class="dropdown-item" href="./phong-choi-benh-vien.html">Bệnh Viện Tâm Thần</a></li>
-                            <li><a class="dropdown-item" href="./phong-choi-thanh-pho.html">Thành Phố Im Lặng</a></li>
-                            <li><a class="dropdown-item" href="./phong-choi-im-lang.html">Im Lặng Là Sống</a></li>
-                            <li><a class="dropdown-item" href="./phong-choi-5-tieng.html">5 Tiếng</a></li>
-                            <li><a class="dropdown-item" href="./phong-choi-the-evil.html">Cái Ác Bên Trong</a></li>
-                          </ul>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="./phong-choi-nha-ma.html">Ngôi Nhà Ma Ám</a></li>
+                                <li><a class="dropdown-item" href="./phong-choi-benh-vien.html">Bệnh Viện Tâm Thần</a></li>
+                                <li><a class="dropdown-item" href="./phong-choi-thanh-pho.html">Thành Phố Im Lặng</a></li>
+                                <li><a class="dropdown-item" href="./phong-choi-im-lang.html">Im Lặng Là Sống</a></li>
+                                <li><a class="dropdown-item" href="./phong-choi-5-tieng.html">5 Tiếng</a></li>
+                                <li><a class="dropdown-item" href="./phong-choi-the-evil.html">Cái Ác Bên Trong</a></li>
+                            </ul>
                       </div>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="bang-gia.html"><i class="fas fa-tag me-1"></i> Bảng Giá</a></li>
@@ -257,8 +262,8 @@
        
      <!-- Contact Section -->
     <!-- Footer -->
-<section id="lienhe" class="py-5 ">
-    <div class="container">
+    <section id="lienhe" class="py-5 bg-dark text-light">
+        <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4 mb-md-0">
                 <h5 class="mb-3">RED ROOM</h5>
@@ -400,34 +405,196 @@
             
             document.getElementById('summary-players').textContent = playerCount;
         }
-        
-        // Submit booking function
-        function submitBooking() {
-    var data = {
-        fullname: document.getElementById("fullname").value,
-        phone: document.getElementById("phone").value,
-        email: document.getElementById("email").value,
-        game: document.getElementById("summary-game").textContent,
-        date: document.getElementById("summary-date").textContent,
-        time: document.getElementById("summary-time").textContent,
-        players: document.getElementById("player-count").value,
-        location: document.getElementById("summary-location").textContent,
-        price: document.getElementById("summary-price").textContent,
-        totalPrice: document.getElementById("summary-total").textContent,
-        note: document.getElementById("note").value
+
+
+        // Initialize booked slots from localStorage or create new Map
+let bookedSlots = new Map(JSON.parse(localStorage.getItem('bookedSlots') || '[]'));
+
+// Save booked slots to localStorage
+function saveBookedSlots() {
+    localStorage.setItem('bookedSlots', JSON.stringify([...bookedSlots]));
+}
+
+// Modify the submitBooking function
+function submitBooking() {
+    const selectedGame = document.querySelector('.game-option.selected');
+    const selectedTime = document.querySelector('.time-slot.selected');
+    const date = document.getElementById('booking-date').value;
+    const playerCount = document.getElementById('player-count').value;
+    const fullName = document.getElementById('fullname').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const location = document.getElementById('location').value;
+    const note = document.getElementById('note').value;
+
+    if (!selectedGame || !selectedTime || !date || !fullName || !phone || !email) {
+        alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
+        return;
+    }
+
+    const bookingInfo = {
+        game: selectedGame.dataset.gameName,
+        date: new Date(date).toLocaleDateString('vi-VN'),
+        time: selectedTime.textContent,
+        players: playerCount,
+        pricePerPerson: selectedGame.dataset.price,
+        total: parseInt(selectedGame.dataset.price) * parseInt(playerCount),
+        fullName: fullName,
+        phone: phone,
+        email: email,
+        location: location,
+        note: note || 'Không có ghi chú'
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbxSe428TKfR9WMhn7aj5VU2dXRtwijCG0l6yvtuS1OLSuuIr3faiExzDoS9lxnq9di-2w/exec", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.text())
-    .then(data => console.log("Response:", data))
-    .catch(error => console.error("Lỗi:", error));
+    const bookingKey = `${bookingInfo.game}-${bookingInfo.date}-${bookingInfo.time}`;
+    
+    if (bookedSlots.has(bookingKey)) {
+        alert('Khung giờ này đã được đặt! Vui lòng chọn khung giờ khác.');
+        return;
+    }
+
+    const textContent = `
+RED ROOM - XÁC NHẬN ĐẶT PHÒNG
+-----------------------------
+Phòng chơi: ${bookingInfo.game}
+Ngày: ${bookingInfo.date}
+Giờ: ${bookingInfo.time}
+Số người: ${bookingInfo.players}
+Giá/người: ${bookingInfo.pricePerPerson.toLocaleString('vi-VN')}đ
+Tổng cộng: ${bookingInfo.total.toLocaleString('vi-VN')}đ
+-----------------------------
+Họ và tên: ${bookingInfo.fullName}
+Số điện thoại: ${bookingInfo.phone}
+Email: ${bookingInfo.email}
+Cơ sở: ${bookingInfo.location}
+Ghi chú: ${bookingInfo.note}
+-----------------------------
+Cảm ơn bạn đã đặt phòng tại Red Room!
+    `;
+
+    const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `Booking_${bookingInfo.fullName}_${bookingInfo.date}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Mark time slot as booked
+    selectedTime.classList.add('booked');
+    bookedSlots.set(bookingKey, {
+        game: bookingInfo.game,
+        date: bookingInfo.date,
+        time: bookingInfo.time
+    });
+    saveBookedSlots();
+
+    alert('Đặt phòng thành công! File xác nhận đã được tải xuống.');
 }
+
+// Update selectTimeSlot function
+function selectTimeSlot(element) {
+    if (element.classList.contains('booked')) {
+        alert('Khung giờ này đã được đặt!');
+        return;
+    }
+
+    document.querySelectorAll('.time-slot').forEach(slot => {
+        if (!slot.classList.contains('booked')) {
+            slot.classList.remove('selected');
+        }
+    });
+
+    element.classList.add('selected');
+    document.getElementById('summary-time').textContent = element.textContent;
+}
+
+// Update time slots based on selected date and game
+function updateTimeSlots() {
+    const selectedGame = document.querySelector('.game-option.selected');
+    const date = document.getElementById('booking-date').value;
+    
+    document.querySelectorAll('.time-slot').forEach(slot => {
+        slot.classList.remove('booked');
+        slot.classList.remove('selected');
+    });
+
+    if (selectedGame && date) {
+        const formattedDate = new Date(date).toLocaleDateString('vi-VN');
+        
+        document.querySelectorAll('.time-slot').forEach(slot => {
+            const bookingKey = `${selectedGame.dataset.gameName}-${formattedDate}-${slot.textContent}`;
+            if (bookedSlots.has(bookingKey)) {
+                slot.classList.add('booked');
+            }
+        });
+    }
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('booking-date').min = today;
+    
+    document.getElementById('player-count').addEventListener('change', updateSummary);
+    document.getElementById('location').addEventListener('change', function() {
+        document.getElementById('summary-location').textContent = this.value;
+    });
+    
+    document.getElementById('booking-date').addEventListener('change', function() {
+        if (this.value) {
+            const date = new Date(this.value);
+            const formattedDate = date.toLocaleDateString('vi-VN');
+            document.getElementById('summary-date').textContent = formattedDate;
+            document.getElementById('summary-time').textContent = '-:-';
+            updateTimeSlots();
+        } else {
+            document.getElementById('summary-date').textContent = '--/--/----';
+            document.getElementById('summary-time').textContent = '-:-';
+        }
+    });
+    
+    document.querySelectorAll('.game-option').forEach(option => {
+        option.addEventListener('click', function() {
+            updateTimeSlots();
+            updateSummary();
+        });
+    });
+});
+
+// Keep the existing selectGame and updateSummary functions as they were
+function selectGame(element, gameName, pricePerPerson) {
+    document.querySelectorAll('.game-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    element.classList.add('selected');
+    
+    document.getElementById('summary-game').textContent = gameName;
+    document.getElementById('summary-price').textContent = pricePerPerson.toLocaleString('vi-VN') + 'đ';
+    
+    element.dataset.gameName = gameName;
+    element.dataset.price = pricePerPerson;
+    
+    updateSummary();
+    updateTimeSlots();
+}
+
+function updateSummary() {
+    const selectedGame = document.querySelector('.game-option.selected');
+    const playerCount = parseInt(document.getElementById('player-count').value);
+    
+    if (selectedGame) {
+        const pricePerPerson = parseInt(selectedGame.dataset.price);
+        const total = pricePerPerson * playerCount;
+        document.getElementById('summary-total').textContent = total.toLocaleString('vi-VN') + 'đ';
+    } else {
+        document.getElementById('summary-total').textContent = '0đ';
+    }
+    
+    document.getElementById('summary-players').textContent = playerCount;
+}
+       
 
     </script>
 </body>

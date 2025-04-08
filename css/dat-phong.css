@@ -123,14 +123,38 @@ margin-bottom: 20px;
     transition: all 0.3s;
 }
 
+.time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 8px 15px;
+    background-color: rgba(136, 4, 4, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
 .time-slot:hover {
-    border-color: var(--secondary-color);
+    background-color: rgba(136, 4, 4, 0.8);
 }
 
 .time-slot.selected {
-    background-color: var(--secondary-color);
-    color: var(--dark-color);
-    border-color: var(--secondary-color);
+    background-color: #880404;
+    font-weight: bold;
+}
+
+.time-slot.booked {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.time-slot.booked:hover {
+    background-color: #ccc;
 }
 
 
