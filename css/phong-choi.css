@@ -126,6 +126,18 @@ transition: all 0.3s ease;
 color: #dd9933;
 }
 
+#lienhe {
+    padding: 50px 0;
+}
+#lienhe h5 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+#lienhe p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
 .chat-button {
     position: fixed;
     bottom: 20px;

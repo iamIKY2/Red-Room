@@ -12,6 +12,28 @@ body {
     display: flex;
     align-items: center;
     text-align: center;
+    animation: fadeInUp 1.5s ease-in-out;
+
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.hero-section h1 {
+    font-size: 2.5rem;
+    color: #dd9933;
+    margin-bottom: 20px;
+}
+.hero-section p {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 30px;
 }
 .game-card {
     transition: all 0.3s ease;
@@ -44,12 +66,17 @@ body {
     color: #fff;
     border-radius: 25px;
     padding: 10px 30px;
-    transition: background-color 0.3s;
+    transition: all 0.4s ease;
+    transform: scale(1);
 }
+
 .btn-custom:hover {
     background-color: #dd9933;
     color: #fff;
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(255, 158, 13, 0.3);
 }
+
 .description{
     display: block;
     max-width: 1000px;
@@ -134,6 +161,18 @@ transition: all 0.3s ease;
 
 .dropdown:hover .dropdown-toggle {
 color: #dd9933;
+}
+#lienhe {
+    padding: 50px 0;
+}
+#lienhe h5 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+#lienhe p {
+    font-size: 1rem;
+    margin-bottom: 15px;
 }
 /* Chat Button Styles */
 .chat-button {
@@ -277,3 +316,4 @@ color: #dd9933;
     margin-bottom: 15px;
     font-size: 0.9rem;
 }
+

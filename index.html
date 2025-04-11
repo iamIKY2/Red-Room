@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RED ROOM - Trải Nghiệm Giải Đố</title>
-    <link rel="icon" href="./img/icon-32.png" sizes="32x32" />
+    <link rel="icon" href="./img/icon-32.png" sizes="32x32"/>
     <link rel="icon" href="./img/icon-192.png" sizes="192x192" />
     <link rel="apple-touch-icon" href="./img/icon-180.png" />
     <!-- Bootstrap CSS -->
@@ -14,12 +14,11 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/index-style.css">
 </head>
-<body style=" background-image: linear-gradient(rgba(0, 0, 0, 0.308), rgba(0, 0, 0, 0.308)), url('./img/background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
-    <!-- Navigation -->
+<body style="background-image: linear-gradient(rgba(0, 0, 0, 0.308), rgba(0, 0, 0, 0.308)), url('./img/background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="./index.html">
-                <img src="./img/icon.png" style="width: 70px; height: 50px;" > RED ROOM</a>
+                <img src="./img/icon.png" style="width: 50px; height: 50px;" > RED ROOM</a>
           <!-- Dành cho khi màn hình nhỏ lại thì menu đc gọn lại -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -52,11 +51,13 @@
     <!-- Hero Section -->
     <section id="home" class="hero-section" >
         <div class="overlay"></div>
-        <div class="container">
+        <div class="container">    <br><br><br><br><br><br>
+
             <h1 class="display-3 fw-bold" style="color: #850000;">RED ROOM</h1>
-            <p class="lead">Trải nghiệm giải đố thực tế đầy kịch tính</p>
+            <p class="lead" id="typewriter" style="font-size: 30px;"></p>
         </div>
     </section>
+<br><br><br><br><br><br><br><br><br>
 
     <!-- Games Section -->
     <section id="games" class="py-5">
@@ -153,7 +154,7 @@
                     <div class="promotion-price">
                         100k <span>150k</span>
                     </div>
-                    <p>Áp dụng từ 9:00 - 12:00 các ngày trong tuần. Tiết kiệm 50k.</p>
+                    <p>Áp dụng từ 9:00 - 12:00 các ngày trong tuần. Tiết kiệm 170k.</p>
                     <a href="dat-phong.html" class="btn btn-custom">Đặt Ngay</a>
                 </div>
             </div>
@@ -184,8 +185,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4 mb-md-0">
-                <img src="./img/icon.png" style="width: 70px; height: 50px;" > 
-                <h5 class="mb-3">RED ROOM</h5>
+                <img src="./img/icon.png" style="width: 90px; height: 90px;" > 
+                <h5 style="color: #ac2626d0;">RED ROOM</h5>
                 <p>Trải nghiệm giải đố thực tế đầy kịch tính và hồi hộp</p>
                 <div class="social-icons">
                     <a href="https://www.facebook.com/khangduy.chau.5" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
@@ -225,14 +226,33 @@
     </div>
     <div class="chat-body">
         <a href="https://zalo.me/0911918491" target="_blank" class="chat-option">
-            <i class="fa-solid fa-phone"></i>Chat qua Zalo
+            <i class="fa-duotone fa-solid fa-phone fa-shake"></i>Chat qua Zalo
         </a>
         <a href="https://iamiky2.github.io" target="_blank" class="chat-option">
-            <i class="fab fa-facebook-messenger"></i> Chat qua Messenger
+            <i class="fab fa-facebook-messenger fa-bounce"></i> Chat qua Messenger
         </a>
     </div>
 </div>
     <script>
+   //Cho chữ chạy màn hình
+   const text = "Chào mừng tới RED ROOM, nơi mà bạn phải giải đố mà có thể thoát ra ngoài.\nHãy chuẩn bị tinh thần để thử thách nào.";
+const element = document.getElementById("typewriter");
+let i = 0;
+
+function typeWriter() {
+    if (i < text.length) {
+        const char = text.charAt(i) === '\n' ? '<br>' : text.charAt(i);
+        element.innerHTML += char;
+        i++;
+        setTimeout(typeWriter, 50); // tốc độ gõ
+    }
+}
+
+typeWriter();
+
+
+
+    //Chat bot
         function toggleChatPopup() {
             var popup = document.getElementById('chatPopup');
             if (popup.style.display === 'block') {

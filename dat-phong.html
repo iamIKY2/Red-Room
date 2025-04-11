@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="./index.html">
-                <img src="./img/icon.png" style="width: 70px; height: 50px;" >Red Room</a>
+                <img src="./img/icon.png" style="width: 50px; height: 50px;" >Red Room</a>
           <!-- Dành cho khi màn hình nhỏ lại thì menu đc gọn lại -->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -268,8 +268,8 @@
         <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4 mb-md-0">
-                    <img src="./img/icon.png" style="width: 70px; height: 50px;" > 
-                    <h5 class="mb-3">RED ROOM</h5>
+                <img src="./img/icon.png"  style="width: 90px; height: 90px;" > 
+                    <h5 style="color: #880404;">RED ROOM</h5>
                 <p>Trải nghiệm giải đố thực tế đầy kịch tính và hồi hộp</p>
                 <div class="social-icons">
                     <a href="https://www.facebook.com/khangduy.chau.5" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
@@ -300,24 +300,6 @@
 <div class="chat-button" onclick="toggleChatPopup()">
     <i class="fas fa-comment-dots"></i>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Popup chat -->
 <div id="chatPopup" class="chat-popup">
     <div class="chat-header">
@@ -337,84 +319,78 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+
+
+
+
     <script>
-        //Chat bot
-        function toggleChatPopup() {
-            var popup = document.getElementById('chatPopup');
-            if (popup.style.display === 'block') {
-                popup.style.display = 'none';
-            } else {
-                popup.style.display = 'block';
-            }
-        };
-        
-        // Set min date to today
-        document.addEventListener('DOMContentLoaded', function() {
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('booking-date').min = today;
-            
-            // Update summary when player count changes
-            document.getElementById('player-count').addEventListener('change', updateSummary);
-            document.getElementById('location').addEventListener('change', function() {
-                document.getElementById('summary-location').textContent = this.value;
-            });
-            
-            // Update date in summary when changed
-            document.getElementById('booking-date').addEventListener('change', function() {
-                if (this.value) {
-                    const date = new Date(this.value);
-                    const formattedDate = date.toLocaleDateString('vi-VN');
-                    document.getElementById('summary-date').textContent = formattedDate;
-                } else {
-                    document.getElementById('summary-date').textContent = '--/--/----';
-                }
-            });
-        });
-        
-        // Select game function
+             // === Chat bot ===
+             function toggleChatPopup() {
+            // Hiển thị hoặc ẩn popup chat
+            const popup = document.getElementById('chatPopup');
+            popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+        }
+
+
+        // === BIẾN TOÀN CỤC ===
+        let bookedSlots = new Map(JSON.parse(localStorage.getItem('bookedSlots') || '[]')); // Lưu trữ các khung giờ đã đặt
+    
+        // === HÀM QUẢN LÝ LOCAL STORAGE ===
+        function saveBookedSlots() {
+            // Lưu danh sách các khung giờ đã đặt vào localStorage
+            localStorage.setItem('bookedSlots', JSON.stringify([...bookedSlots]));
+        }
+    
+   
+    
         function selectGame(element, gameName, pricePerPerson) {
-            // Remove selected class from all options
+            // Xóa lớp 'selected' khỏi tất cả các tùy chọn phòng chơi
             document.querySelectorAll('.game-option').forEach(option => {
                 option.classList.remove('selected');
             });
             
-            // Add selected class to clicked option
+            // Thêm lớp 'selected' cho phòng được chọn
             element.classList.add('selected');
             
-            // Update summary
+            // Cập nhật thông tin tóm tắt
             document.getElementById('summary-game').textContent = gameName;
             document.getElementById('summary-price').textContent = pricePerPerson.toLocaleString('vi-VN') + 'đ';
             
-            // Store selected game data
+            // Lưu dữ liệu phòng được chọn
             element.dataset.gameName = gameName;
             element.dataset.price = pricePerPerson;
             
+            // Cập nhật giao diện liên quan
             updateSummary();
+            updateTimeSlots();
         }
-        
-        // Select time slot function
+    
         function selectTimeSlot(element) {
-            if (element.classList.contains('booked')) return;
-            
-            // Remove selected class from all time slots
+            // Kiểm tra nếu khung giờ đã được đặt
+            if (element.classList.contains('booked')) {
+                alert('Khung giờ này đã được đặt!');
+                return;
+            }
+    
+            // Xóa lớp 'selected' khỏi các khung giờ chưa được đặt
             document.querySelectorAll('.time-slot').forEach(slot => {
                 if (!slot.classList.contains('booked')) {
                     slot.classList.remove('selected');
                 }
             });
-            
-            // Add selected class to clicked slot
+    
+            // Thêm lớp 'selected' cho khung giờ được chọn
             element.classList.add('selected');
-            
-            // Update summary
             document.getElementById('summary-time').textContent = element.textContent;
         }
-        
-        // Update summary total
+    
+        // === HÀM CẬP NHẬT TÓM TẮT ===
         function updateSummary() {
+            // Lấy thông tin phòng chơi đã chọn và số người chơi
             const selectedGame = document.querySelector('.game-option.selected');
             const playerCount = parseInt(document.getElementById('player-count').value);
             
+            // Tính toán và hiển thị tổng tiền
             if (selectedGame) {
                 const pricePerPerson = parseInt(selectedGame.dataset.price);
                 const total = pricePerPerson * playerCount;
@@ -423,199 +399,151 @@
                 document.getElementById('summary-total').textContent = '0đ';
             }
             
+            // Cập nhật số người chơi trong tóm tắt
             document.getElementById('summary-players').textContent = playerCount;
         }
-
-
-        // Initialize booked slots from localStorage or create new Map
-let bookedSlots = new Map(JSON.parse(localStorage.getItem('bookedSlots') || '[]'));
-
-// Save booked slots to localStorage
-function saveBookedSlots() {
-    localStorage.setItem('bookedSlots', JSON.stringify([...bookedSlots]));
-}
-
-// Modify the submitBooking function
-function submitBooking() {
-    const selectedGame = document.querySelector('.game-option.selected');
-    const selectedTime = document.querySelector('.time-slot.selected');
-    const date = document.getElementById('booking-date').value;
-    const playerCount = document.getElementById('player-count').value;
-    const fullName = document.getElementById('fullname').value;
-    const phone = document.getElementById('phone').value;
-    const email = document.getElementById('email').value;
-    const location = document.getElementById('location').value;
-    const note = document.getElementById('note').value;
-
-    if (!selectedGame || !selectedTime || !date || !fullName || !phone || !email) {
-        alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
-        return;
-    }
-
-    const bookingInfo = {
-        game: selectedGame.dataset.gameName,
-        date: new Date(date).toLocaleDateString('vi-VN'),
-        time: selectedTime.textContent,
-        players: playerCount,
-        pricePerPerson: selectedGame.dataset.price,
-        total: parseInt(selectedGame.dataset.price) * parseInt(playerCount),
-        fullName: fullName,
-        phone: phone,
-        email: email,
-        location: location,
-        note: note || 'Không có ghi chú'
-    };
-
-    const bookingKey = `${bookingInfo.game}-${bookingInfo.date}-${bookingInfo.time}`;
     
-    if (bookedSlots.has(bookingKey)) {
-        alert('Khung giờ này đã được đặt! Vui lòng chọn khung giờ khác.');
-        return;
-    }
-
-    const textContent = `
-RED ROOM - XÁC NHẬN ĐẶT PHÒNG
------------------------------
-Phòng chơi: ${bookingInfo.game}
-Ngày: ${bookingInfo.date}
-Giờ: ${bookingInfo.time}
-Số người: ${bookingInfo.players}
-Giá/người: ${bookingInfo.pricePerPerson.toLocaleString('vi-VN')}đ
-Tổng cộng: ${bookingInfo.total.toLocaleString('vi-VN')}đ
------------------------------
-Họ và tên: ${bookingInfo.fullName}
-Số điện thoại: ${bookingInfo.phone}
-Email: ${bookingInfo.email}
-Cơ sở: ${bookingInfo.location}
-Ghi chú: ${bookingInfo.note}
------------------------------
-Cảm ơn bạn đã đặt phòng tại Red Room!
-    `;
-
-    const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `Booking_${bookingInfo.fullName}_${bookingInfo.date}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Mark time slot as booked
-    selectedTime.classList.add('booked');
-    bookedSlots.set(bookingKey, {
-        game: bookingInfo.game,
-        date: bookingInfo.date,
-        time: bookingInfo.time
-    });
-    saveBookedSlots();
-
-    alert('Đặt phòng thành công! File xác nhận đã được tải xuống.');
-}
-
-// Update selectTimeSlot function
-function selectTimeSlot(element) {
-    if (element.classList.contains('booked')) {
-        alert('Khung giờ này đã được đặt!');
-        return;
-    }
-
-    document.querySelectorAll('.time-slot').forEach(slot => {
-        if (!slot.classList.contains('booked')) {
-            slot.classList.remove('selected');
-        }
-    });
-
-    element.classList.add('selected');
-    document.getElementById('summary-time').textContent = element.textContent;
-}
-
-// Update time slots based on selected date and game
-function updateTimeSlots() {
-    const selectedGame = document.querySelector('.game-option.selected');
-    const date = document.getElementById('booking-date').value;
+        function updateTimeSlots() {
+            // Lấy thông tin phòng chơi và ngày được chọn
+            const selectedGame = document.querySelector('.game-option.selected');
+            const date = document.getElementById('booking-date').value;
+            
+            // Đặt lại trạng thái tất cả khung giờ
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('booked');
+                slot.classList.remove('selected');
+            });
     
-    document.querySelectorAll('.time-slot').forEach(slot => {
-        slot.classList.remove('booked');
-        slot.classList.remove('selected');
-    });
-
-    if (selectedGame && date) {
-        const formattedDate = new Date(date).toLocaleDateString('vi-VN');
-        
-        document.querySelectorAll('.time-slot').forEach(slot => {
-            const bookingKey = `${selectedGame.dataset.gameName}-${formattedDate}-${slot.textContent}`;
-            if (bookedSlots.has(bookingKey)) {
-                slot.classList.add('booked');
+            // Đánh dấu các khung giờ đã được đặt
+            if (selectedGame && date) {
+                const formattedDate = new Date(date).toLocaleDateString('vi-VN');
+                document.querySelectorAll('.time-slot').forEach(slot => {
+                    const bookingKey = `${selectedGame.dataset.gameName}-${formattedDate}-${slot.textContent}`;
+                    if (bookedSlots.has(bookingKey)) {
+                        slot.classList.add('booked');
+                    }
+                });
             }
-        });
-    }
-}
-
-// Event listeners
-document.addEventListener('DOMContentLoaded', function() {
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('booking-date').min = today;
-    
-    document.getElementById('player-count').addEventListener('change', updateSummary);
-    document.getElementById('location').addEventListener('change', function() {
-        document.getElementById('summary-location').textContent = this.value;
-    });
-    
-    document.getElementById('booking-date').addEventListener('change', function() {
-        if (this.value) {
-            const date = new Date(this.value);
-            const formattedDate = date.toLocaleDateString('vi-VN');
-            document.getElementById('summary-date').textContent = formattedDate;
-            document.getElementById('summary-time').textContent = '-:-';
-            updateTimeSlots();
-        } else {
-            document.getElementById('summary-date').textContent = '--/--/----';
-            document.getElementById('summary-time').textContent = '-:-';
         }
-    });
     
-    document.querySelectorAll('.game-option').forEach(option => {
-        option.addEventListener('click', function() {
-            updateTimeSlots();
-            updateSummary();
+        // === HÀM GỬI ĐẶT PHÒNG ===
+        function submitBooking() {
+            // Thu thập dữ liệu từ form
+            const selectedGame = document.querySelector('.game-option.selected');
+            const selectedTime = document.querySelector('.time-slot.selected');
+            const date = document.getElementById('booking-date').value;
+            const playerCount = document.getElementById('player-count').value;
+            const fullName = document.getElementById('fullname').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const location = document.getElementById('location').value;
+            const note = document.getElementById('note').value;
+    
+            // Kiểm tra thông tin bắt buộc
+            if (!selectedGame || !selectedTime || !date || !fullName || !phone || !email) {
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
+                return;
+            }
+    
+            // Tạo đối tượng thông tin đặt phòng
+            const bookingInfo = {
+                game: selectedGame.dataset.gameName,
+                date: new Date(date).toLocaleDateString('vi-VN'),
+                time: selectedTime.textContent,
+                players: playerCount,
+                pricePerPerson: selectedGame.dataset.price,
+                total: parseInt(selectedGame.dataset.price) * parseInt(playerCount),
+                fullName,
+                phone,
+                email,
+                location,
+                note: note || 'Không có ghi chú'
+            };
+    
+            // Kiểm tra khung giờ có sẵn
+            const bookingKey = `${bookingInfo.game}-${bookingInfo.date}-${bookingInfo.time}`;
+            if (bookedSlots.has(bookingKey)) {
+                alert('Khung giờ này đã được đặt! Vui lòng chọn khung giờ khác.');
+                return;
+            }
+    
+            // Tạo nội dung xác nhận
+            const textContent = `
+    RED ROOM - XÁC NHẬN ĐẶT PHÒNG
+    -----------------------------
+    Phòng chơi: ${bookingInfo.game}
+    Ngày: ${bookingInfo.date}
+    Giờ: ${bookingInfo.time}
+    Số người: ${bookingInfo.players}
+    Giá/người: ${bookingInfo.pricePerPerson.toLocaleString('vi-VN')}đ
+    Tổng cộng: ${bookingInfo.total.toLocaleString('vi-VN')}đ
+    -----------------------------
+    Họ và tên: ${bookingInfo.fullName}
+    Số điện thoại: ${bookingInfo.phone}
+    Email: ${bookingInfo.email}
+    Cơ sở: ${bookingInfo.location}
+    Ghi chú: ${bookingInfo.note}
+    -----------------------------
+    Cảm ơn bạn đã đặt phòng tại RED ROOM!
+            `;
+    
+            // Tạo và tải xuống file xác nhận
+            const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Booking_${bookingInfo.fullName}_${bookingInfo.date}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    
+            // Cập nhật trạng thái đặt phòng
+            selectedTime.classList.add('booked');
+            bookedSlots.set(bookingKey, {
+                game: bookingInfo.game,
+                date: bookingInfo.date,
+                time: bookingInfo.time
+            });
+            saveBookedSlots();
+    
+            alert('Đặt phòng thành công.');
+        }
+    
+        // === TRÌNH XỬ LÝ SỰ KIỆN ===
+        document.addEventListener('DOMContentLoaded', function() {
+            // Đặt ngày tối thiểu là ngày hiện tại
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('booking-date').min = today;
+    
+            // Xử lý thay đổi số người chơi
+            document.getElementById('player-count').addEventListener('change', updateSummary);
+    
+            // Xử lý thay đổi cơ sở
+            document.getElementById('location').addEventListener('change', function() {
+                document.getElementById('summary-location').textContent = this.value;
+            });
+    
+            // Xử lý thay đổi ngày
+            document.getElementById('booking-date').addEventListener('change', function() {
+                if (this.value) {
+                    const date = new Date(this.value);
+                    const formattedDate = date.toLocaleDateString('vi-VN');
+                    document.getElementById('summary-date').textContent = formattedDate;
+                    document.getElementById('summary-time').textContent = '-:-';
+                    updateTimeSlots();
+                } else {
+                    document.getElementById('summary-date').textContent = '--/--/----';
+                    document.getElementById('summary-time').textContent = '-:-';
+                }
+            });
+    
+            // Xử lý chọn phòng chơi
+            document.querySelectorAll('.game-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    updateTimeSlots();
+                    updateSummary();
+                });
+            });
         });
-    });
-});
-
-// Keep the existing selectGame and updateSummary functions as they were
-function selectGame(element, gameName, pricePerPerson) {
-    document.querySelectorAll('.game-option').forEach(option => {
-        option.classList.remove('selected');
-    });
-    
-    element.classList.add('selected');
-    
-    document.getElementById('summary-game').textContent = gameName;
-    document.getElementById('summary-price').textContent = pricePerPerson.toLocaleString('vi-VN') + 'đ';
-    
-    element.dataset.gameName = gameName;
-    element.dataset.price = pricePerPerson;
-    
-    updateSummary();
-    updateTimeSlots();
-}
-
-function updateSummary() {
-    const selectedGame = document.querySelector('.game-option.selected');
-    const playerCount = parseInt(document.getElementById('player-count').value);
-    
-    if (selectedGame) {
-        const pricePerPerson = parseInt(selectedGame.dataset.price);
-        const total = pricePerPerson * playerCount;
-        document.getElementById('summary-total').textContent = total.toLocaleString('vi-VN') + 'đ';
-    } else {
-        document.getElementById('summary-total').textContent = '0đ';
-    }
-    
-    document.getElementById('summary-players').textContent = playerCount;
-}
-       
-
     </script>
 </body>
 </html>
