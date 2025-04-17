@@ -1,131 +1,152 @@
-:root {
-    --primary-color: #880404;
-    --secondary-color: #dd9933;
-    --dark-color: #1a1a1a;
-    --darker-color: #111;
-    --light-color: #ffffff;
-    --gray-color: #333333;
-    --light-gray: #f8f9fa;
+/* ===============================
+   1. Biến màu dùng toàn trang (Root)
+   =============================== */
+   :root {
+    --primary-color: #880404;        /* Màu chính (đỏ đậm) */
+    --secondary-color: #dd9933;      /* Màu phụ (cam vàng) */
+    --dark-color: #1a1a1a;           /* Màu nền tối */
+    --darker-color: #111;            /* Màu tối hơn nữa */
+    --light-color: #ffffff;          /* Màu trắng */
+    --gray-color: #333333;           /* Màu xám đậm */
+    --light-gray: #f8f9fa;           /* Màu xám nhạt */
 }
 
+/* ===============================
+   2. Cài đặt chung cho trang web
+   =============================== */
 body {
     font-family: 'Montserrat', sans-serif;
-    background-color: #1a1a1a;
-    color: #fff;
+    background-color: var(--dark-color); /* nền tối */
+    color: var(--light-color);           /* chữ trắng */
 }
+
+/* Thanh menu */
 .navbar {
-    background-color: #850000;
+    background-color: var(--primary-color);
 }
+
+/* Tiêu đề */
 .hero-section {
     display: flex;
     align-items: center;
     text-align: center;
 }
 
+
 .section-title {
-    color: #dd9933;
+    color: var(--secondary-color);
     text-transform: uppercase;
     font-weight: 700;
 }
+
+
 .footer {
-    background-color: #333333;
+    background-color: var(--gray-color);
     padding: 5px 0;
 }
+
+/* Nút button*/
 .btn-custom {
-    background-color: #850000;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--light-color);
     border-radius: 25px;
     padding: 10px 30px;
     transition: background-color 0.3s;
 }
 .btn-custom:hover {
-    background-color: #dd9933;
-    color: #fff;
+    background-color: var(--secondary-color);
+    color: var(--light-color);
 }
-.description{
+
+/* ===============================
+   8. Phần mô tả nội dung
+   =============================== */
+.description {
     display: block;
     max-width: 1000px;
 }
+
 #section_description {
     padding-top: 30px;
     padding-bottom: 30px;
-    max-width: 1120px;     
+    max-width: 1120px;
     margin-left: auto;
     margin-right: auto;
 }
+
 #main_img {
     width: 100%;
 }
+
+/* Responsive ảnh khi màn hình > 550px */
 @media (min-width:550px) {
     #main_img {
         width: 85%;
     }
 }
-    /* Menu trò chơi*/
-.dropdown button{
+
+/* ===============================
+   9. Menu Dropdown (trò chơi)
+   =============================== */
+.dropdown button {
     border: none;
     background: none;
-    color: rgba(255, 255, 255, 0.7);   
-    margin-top: 1.5px;     
+    color: rgba(255, 255, 255, 0.7); /* trắng nhạt */
+    margin-top: 1.5px;
 }
-.dropdown .dropdown-menu{
-    margin-top: 0px; 
-    background:  #1a1a1a;
-    color:white;
+
+/* Phần dropdown menu */
+.dropdown .dropdown-menu {
+    margin-top: 0;
+    background: var(--dark-color);
+    color: var(--light-color);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 5px 15px rgba(136, 4, 4, 0.5);
 }
+
+/* Hiện menu khi hover */
 .dropdown:hover .dropdown-menu {
     display: block;
-    margin-top: 0px; 
-    background:  #1a1a1a;
-    color:white;
 }
-.dropdown .dropdown-item{
-    display: block;
-    margin-top: 0px; 
-    background:  #1a1a1a;
-    color:white;
-}
+
+/* Các mục trong dropdown */
 .dropdown .dropdown-item {
-display: block;
-margin-top: 0px; 
-background: #1a1a1a;
-color: white;
-transition: all 0.3s ease;
-padding: 10px 15px;
-border-left: 3px solid transparent;
+    display: block;
+    margin-top: 0;
+    background: var(--dark-color);
+    color: var(--light-color);
+    transition: all 0.3s ease;
+    padding: 10px 15px;
+    border-left: 3px solid transparent;
 }
 
+/* Hiệu ứng hover của mục dropdown */
 .dropdown .dropdown-item:hover {
-background: #8c1414;
-color: white;
-border-left: 3px solid #040404;
-transform: translateX(5px);
+    background: #8c1414;
+    color: var(--light-color);
+    border-left: 3px solid #040404;
+    transform: translateX(5px);
 }
 
-.dropdown .dropdown-menu {
-margin-top: 0px; 
-background: #1a1a1a;
-color: white;
-border: 1px solid #880404;
-box-shadow: 0 5px 15px rgba(136, 4, 4, 0.5);
-}
-
+/* Hiệu ứng mũi tên khi hover */
 .dropdown-toggle::after {
-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
 }
-
 .dropdown:hover .dropdown-toggle::after {
-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
+/* Chữ của toggle khi hover */
 .dropdown-toggle {
-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
-
 .dropdown:hover .dropdown-toggle {
-color: #dd9933;
+    color: var(--secondary-color);
 }
 
+/* ===============================
+   10. Phần liên hệ
+   =============================== */
 #lienhe {
     padding: 50px 0;
 }
@@ -138,6 +159,10 @@ color: #dd9933;
     font-size: 1rem;
     margin-bottom: 15px;
 }
+
+/* ===============================
+   11. Nút Chat (nổi dưới góc)
+   =============================== */
 .chat-button {
     position: fixed;
     bottom: 20px;
@@ -165,7 +190,9 @@ color: #dd9933;
     color: var(--light-color);
 }
 
-/* Chat popup */
+/* ===============================
+   12. Hộp thoại chat popup
+   =============================== */
 .chat-popup {
     position: fixed;
     bottom: 90px;
@@ -206,6 +233,7 @@ color: #dd9933;
     padding: 10px;
 }
 
+/* Mỗi lựa chọn trong hộp thoại */
 .chat-option {
     display: flex;
     align-items: center;
@@ -224,4 +252,30 @@ color: #dd9933;
 .chat-option i {
     margin-right: 10px;
     font-size: 20px;
+}
+/* ===============================
+   13. Responsive cho các thiết bị di động
+   =============================== */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-section img {
+        width: 100%;
+        height: auto;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .btn-custom {
+        padding: 8px 20px;
+    }
+
+    .description {
+        font-size: 0.9rem;
+    }
 }

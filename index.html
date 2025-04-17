@@ -128,7 +128,7 @@
         </div>
     </section>
  
-    <!-- Promotion Section -->
+    <!-- Phần khuyến mãi -->
 <section class="promotion-section">
     <div class="container">
         <h2 class="section-title text-center mb-5">Ưu Đãi Đặc Biệt</h2>
@@ -146,7 +146,6 @@
                 </div>
             </div>
             
-            <!-- Promotion 2 -->
             <div class="col-md-4 mb-4">
                 <div class="promotion-card">
                     <div class="promotion-badge">GIẢM 30%</div>
@@ -159,7 +158,6 @@
                 </div>
             </div>
             
-            <!-- Promotion 3 -->
             <div class="col-md-4 mb-4">
                 <div class="promotion-card">
                     <div class="promotion-badge">GIẢM 15%</div>
@@ -218,6 +216,12 @@
     <i class="fas fa-comment-dots"></i>
 </div>
 
+
+ <!-- Nút Play Game -->
+ <div class="play-game-button" onclick="toggleGame()">
+    <i class="fas fa-gamepad"></i>
+</div>
+
 <!-- Popup chat -->
 <div id="chatPopup" class="chat-popup">
     <div class="chat-header">
@@ -233,7 +237,57 @@
         </a>
     </div>
 </div>
+
+<div id="gameIframeContainer" style="
+display: none;
+position: fixed;
+top: 10%;
+left: 50%;
+transform: translateX(-50%);
+width: 90%;
+height: 80%;
+z-index: 999;
+box-shadow: 0 0 20px rgba(0,0,0,0.8);
+border: 5px solid #dd9933;
+border-radius: 20px;
+overflow: hidden;
+">
+    <iframe id="gameIframe" src="game.html" style="width: 100%; height: 100%; border: none;"></iframe>
+    <button onclick="toggleGame()" style="
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #850000;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        z-index: 1001;
+    ">Đóng</button>
+</div>
+
     <script>
+        // Hiện / Ẩn game 
+        function toggleGame() {
+    var gameContainer = document.getElementById("gameIframeContainer");
+    if (gameContainer.style.display === "none" || gameContainer.style.display === "") {
+        gameContainer.style.display = "block";
+    } else {
+        gameContainer.style.display = "none";
+    }
+}
+    
+            // Hiện / Ẩn chat popup
+            function toggleChatPopup() {
+                var popup = document.getElementById('chatPopup');
+                if (popup.style.display === 'block') {
+                    popup.style.display = 'none';
+                } else {
+                    popup.style.display = 'block';
+                }
+            }
+
    //Cho chữ chạy màn hình
    const text = "Chào mừng tới RED ROOM, nơi mà bạn phải giải đố mà có thể thoát ra ngoài.\nHãy chuẩn bị tinh thần để thử thách nào.";
 const element = document.getElementById("typewriter");
@@ -265,7 +319,6 @@ typeWriter();
     <!-- Bootstrap JS and Font Awesome for icons -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <!-- Custom JS -->
   
 </body>
 </html>

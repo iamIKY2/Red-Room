@@ -4,17 +4,20 @@ body {
     background-color: #1a1a1a;
     color: #fff;
 }
+
+/* Thanh menu*/
 .navbar {
     background-color: #850000;
 }
-.hero-section {
 
+/* Tiêu đề */
+.hero-section {
     display: flex;
     align-items: center;
     text-align: center;
     animation: fadeInUp 1.5s ease-in-out;
-
 }
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -25,42 +28,54 @@ body {
         transform: translateY(0);
     }
 }
+
 .hero-section h1 {
     font-size: 2.5rem;
     color: #dd9933;
     margin-bottom: 20px;
 }
+
 .hero-section p {
     font-size: 1.2rem;
     color: #fff;
     margin-bottom: 30px;
 }
+
+/* Thẻ các phòng chơi */
 .game-card {
     transition: all 0.3s ease;
     background-color: #242628;
     border: none;
 }
-.card-body{
+
+.card-body {
     color: white;
 }
+
 .game-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(133, 0, 0, 0.5);
 }
+
 .game-card img {
     height: 300px;
     object-fit: cover;
 }
+
+/* Tiêu đề */
 .section-title {
     color: #dd9933;
     text-transform: uppercase;
     font-weight: 700;
 }
 
+
 .footer {
     background-color: #333333;
     padding: 5px 0;
 }
+
+/* NÚT TÙY CHỈNH */
 .btn-custom {
     background-color: #850000;
     color: #fff;
@@ -77,10 +92,12 @@ body {
     box-shadow: 0 8px 15px rgba(255, 158, 13, 0.3);
 }
 
-.description{
+/*  PHẦN MÔ TẢ */
+.description {
     display: block;
     max-width: 1000px;
 }
+
 #section_description {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -88,93 +105,83 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
 #main_img {
     width: 100%;
 }
-@media (min-width:550px) {
+
+@media (min-width: 550px) {
     #main_img {
         width: 85%;
     }
 }
-table{
+
+/*Table*/
+table {
     border-width: 20px;
 }
-.dropdown button{
+
+/* Menu phòng chơi */
+.dropdown button {
     border: none;
     background: none;
     color: rgba(255, 255, 255, 0.7);    
 }
-.dropdown .dropdown-menu{
-    margin-top: 0px; 
-    background:  #1a1a1a;
-    color:white;
+
+.dropdown .dropdown-menu {
+    margin-top: 0px;
+    background: #1a1a1a;
+    color: white;
+    border: 1px solid #880404;
+    box-shadow: 0 5px 15px rgba(136, 4, 4, 0.5);
 }
-.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0px; 
-    background:  #1a1a1a;
-    color:white;
-}
-.dropdown .dropdown-item{
-    display: block;
-    margin-top: 0px; 
-    background:  #1a1a1a;
-    color:white;
-}
-/* Thêm vào phần CSS */
+
 .dropdown .dropdown-item {
-display: block;
-margin-top: 0px; 
-background: #1a1a1a;
-color: white;
-transition: all 0.3s ease;
-padding: 10px 15px;
-border-left: 3px solid transparent;
+    display: block;
+    margin-top: 0px;
+    background: #1a1a1a;
+    color: white;
+    transition: all 0.3s ease;
+    padding: 10px 15px;
+    border-left: 3px solid transparent;
 }
 
 .dropdown .dropdown-item:hover {
-background: #8c1414;
-color: white;
-border-left: 3px solid #040404;
-transform: translateX(5px);
-}
-
-.dropdown .dropdown-menu {
-margin-top: 0px; 
-background: #1a1a1a;
-color: white;
-border: 1px solid #880404;
-box-shadow: 0 5px 15px rgba(136, 4, 4, 0.5);
+    background: #8c1414;
+    color: white;
+    border-left: 3px solid #040404;
+    transform: translateX(5px);
 }
 
 .dropdown-toggle::after {
-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .dropdown:hover .dropdown-toggle::after {
-transform: rotate(180deg);
-}
-
-.dropdown-toggle {
-transition: all 0.3s ease;
+    transform: rotate(180deg);
 }
 
 .dropdown:hover .dropdown-toggle {
-color: #dd9933;
+    color: #dd9933;
 }
+
+/*Liên hệ*/
 #lienhe {
     padding: 50px 0;
 }
+
 #lienhe h5 {
     font-size: 1.3rem;
     font-weight: 700;
     margin-bottom: 20px;
 }
+
 #lienhe p {
     font-size: 1rem;
     margin-bottom: 15px;
 }
-/* Chat Button Styles */
+
+/* Nút chat */
 .chat-button {
     position: fixed;
     bottom: 20px;
@@ -202,7 +209,33 @@ color: #dd9933;
     color: white;
 }
 
-/* Style cho popup chat */
+/* Nút popup */
+.play-game-button {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #850000; /* màu đỏ */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.play-game-button:hover {
+    background-color: #dd9933; /* màu vàng */
+    transform: scale(1.1);
+}
+
+.play-game-button i {
+    font-size: 24px;
+    color: white;
+}
 .chat-popup {
     position: fixed;
     bottom: 90px;
@@ -262,8 +295,8 @@ color: #dd9933;
     margin-right: 10px;
     font-size: 20px;
 }
-/* Style cho phần khuyến mãi */
 
+/* Phần khuyến mãi */
 .promotion-section {
     padding: 50px 0;
     background-color: rgba(0, 0, 0, 0.336);
@@ -316,4 +349,3 @@ color: #dd9933;
     margin-bottom: 15px;
     font-size: 0.9rem;
 }
-
